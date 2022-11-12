@@ -44,10 +44,10 @@ const run = async() => {
             res.send(service); 
         });
 
-        app.get('/reviews', (req, res) => {
+        app.get('/reviews', async(req, res) => {
             const query = {};
             const cursor = reviewCollection.find(query);
-            const review = cursor.toArray();
+            const review = await cursor.toArray();
             res.send(review); 
          })
 
