@@ -21,6 +21,7 @@ const client = new MongoClient(uri, {
 const run = async() => {
     try{
         const serviceCollection = client.db('serviceReview').collection('services'); 
+        const reviewCollection = client.db("serviceReview").collection('reviews');
 
         app.get('/services', async(req, res) => {
             const query = {};
@@ -41,6 +42,12 @@ const run = async() => {
             const query = {_id: ObjectId(id)};
             const service = await serviceCollection.findOne(query);
             res.send(service); 
+        });
+
+        app.post('/reviews', async(req, res) => {
+            const review = req.body; 
+            const result = await reviewCollection.insertOne(review);
+            res.send(result); 
         })
     }
     finally{
