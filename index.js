@@ -9,7 +9,6 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-
 const uri =
 	`mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.26tpbod.mongodb.net/?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
@@ -22,7 +21,6 @@ const run = async() => {
     try{
         const serviceCollection = client.db('serviceReview').collection('services'); 
         const reviewCollection = client.db("serviceReview").collection('reviews');
-
 
         app.get('/services', async(req, res) => {
             const query = {};
@@ -76,12 +74,9 @@ const run = async() => {
             res.send(result); 
         })
     }
-    finally{
-        
-    }
+    finally{}
 }
 run().catch(err => console.log(err)); 
-
 
 app.get('/', (req, res) => {
     res.send('service review assignment server running');
